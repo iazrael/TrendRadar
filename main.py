@@ -64,9 +64,9 @@ def load_config():
 
     print(f"配置文件加载成功: {config_path}")
     # 打印所有环境变量
-    print(f"所有环境变量")
-    for key in sorted(os.environ.keys()):
-        print(f'{key}: {os.environ[key]}')
+    #print(f"所有环境变量")
+    #for key in sorted(os.environ.keys()):
+    #    print(f'{key}: {os.environ[key]}')
 
     # 构建配置
     config = {
