@@ -62,6 +62,11 @@ jobs:
           NTFY_SERVER_URL: ${{ secrets.NTFY_SERVER_URL }}
           NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
           GITHUB_ACTIONS: true
+          PUSH_WINDOW_ENABLED: ${{ vars.PUSH_WINDOW_ENABLED }}
+          PUSH_WINDOW_END: ${{ vars.PUSH_WINDOW_END }}
+          PUSH_WINDOW_ONCE_PER_DAY: ${{ vars.PUSH_WINDOW_ONCE_PER_DAY }}
+          PUSH_WINDOW_START: ${{ vars.PUSH_WINDOW_START }}
+          REPORT_MODE: ${{ vars.REPORT_MODE }}
         run: python main.py
 
       - name: Commit and push if changes
