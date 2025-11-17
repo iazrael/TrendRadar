@@ -2,11 +2,9 @@ LLM
 大模型
 多模态
 
-DeepSeek
 ASR
 TTS
 Agent
-AIAgent
 
 华为
 鸿蒙
@@ -17,7 +15,6 @@ NVIDIA
 
 AMD
 intel
-
 GPU
 NPU
 
@@ -25,13 +22,12 @@ NPU
 google
 gemini
 deepmind
+DeepSeek
 
 chatgpt
 openai
 sora
-
 claude
-Anthropic
 
 iphone
 ipad
@@ -43,9 +39,7 @@ ai
 人工智能
 
 自动驾驶
-
 机器人
-
 
 芯片
 光刻机
