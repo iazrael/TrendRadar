@@ -3466,14 +3466,59 @@ def send_to_feishu(
         )
         now = get_beijing_time()
 
+        # payload = {
+        #     "msg_type": "text",
+        #     "content": {
+        #         "total_titles": total_titles,
+        #         "timestamp": now.strftime("%Y-%m-%d %H:%M:%S"),
+        #         "report_type": report_type,
+        #         "text": batch_content,
+        #     },
+        # }
+        # 用消息卡片的形式发送
         payload = {
-            "msg_type": "text",
-            "content": {
-                "total_titles": total_titles,
-                "timestamp": now.strftime("%Y-%m-%d %H:%M:%S"),
-                "report_type": report_type,
-                "text": batch_content,
-            },
+            "msg_type": "interactive",
+            "card":{
+                "config": {
+                    "wide_screen_mode": True
+                },
+                "elements": [
+                    {
+                        "tag": "markdown",
+                        "content": batch_content
+                    },
+                    {
+                        "tag": "action",
+                        "actions": [
+                            {
+                                "tag": "button",
+                                "text": {
+                                    "tag": "plain_text",
+                                    "content": "查看详情"
+                                },
+                                "type": "default",
+                                "multi_url": {
+                                    "url": "http://appx.imatlas.com/TrendRadar/",
+                                    "pc_url": "",
+                                    "android_url": "",
+                                    "ios_url": ""
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "header": {
+                    "template": "blue",
+                    "title": {
+                        "content": f"今日新闻 | {report_type} ({total_titles})",
+                        "tag": "plain_text"
+                    },
+                    "subtitle": {
+                        "tag": "plain_text",
+                        "content": now.strftime("%Y-%m-%d %H:%M:%S")
+                    }
+                }
+            }
         }
 
         try:
