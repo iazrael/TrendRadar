@@ -319,6 +319,8 @@ def load_config():
     config["SLACK_WEBHOOK_URL"] = os.environ.get("SLACK_WEBHOOK_URL", "").strip() or webhooks.get(
         "slack_webhook_url", ""
     )
+    
+    config["WEBSERVER_LINK"] = os.environ.get("WEBSERVER_LINK", "").strip()
 
     # 输出配置来源信息
     notification_sources = []
@@ -397,7 +399,7 @@ def load_config():
 
 print("正在加载配置...")
 CONFIG = load_config()
-print(f"TrendRadar v{VERSION} 配置加载完成")
+print(f"TrendRadar v{VERSION} 配置加载完成:\n{CONFIG}")
 print(f"监控平台数量: {len(CONFIG['PLATFORMS'])}")
 
 
@@ -4044,6 +4046,8 @@ def send_to_feishu(
         #     },
         # }
         time_str = now.strftime("%Y-%m-%d %H:%M:%S")
+        # http://localhost:8880/2025年12月03日/html/当日汇总.html
+        report_link = f"{CONFIG['WEBSERVER_LINK']}/{now.strftime('%Y年%m月%d日')}/html/{report_type}.html"
         payload = {
             "msg_type": "interactive",
             "card": {
@@ -4079,7 +4083,7 @@ def send_to_feishu(
                                 "tag": "plain_text",
                                 "content": "查看详情"
                             },
-                            "url": "",
+                            "url": report_link,
                             "type": "primary"
                         }
                     ]

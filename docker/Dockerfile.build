@@ -2,7 +2,7 @@ FROM wantcat/trendradar:latest
 
 WORKDIR /app
 
-RUN echo "v1.0.13" > .version
+RUN echo "v1.0.17" > .version
 COPY main.py .
 COPY docker/manage.py .
 

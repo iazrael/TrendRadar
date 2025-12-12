@@ -25,6 +25,7 @@ services:
       # Web 服务器
       - ENABLE_WEBSERVER=${ENABLE_WEBSERVER:-false}
       - WEBSERVER_PORT=${WEBSERVER_PORT:-8080}
+      - WEBSERVER_LINK=${WEBSERVER_LINK:-}
       # 多账号配置
       - MAX_ACCOUNTS_PER_CHANNEL=${MAX_ACCOUNTS_PER_CHANNEL:-}
       # 推送时间窗口
