@@ -4034,14 +4034,58 @@ def send_to_feishu(
         )
         now = get_beijing_time()
 
+        # payload = {
+        #     "msg_type": "text",
+        #     "content": {
+        #         "total_titles": total_titles,
+        #         "timestamp": now.strftime("%Y-%m-%d %H:%M:%S"),
+        #         "report_type": report_type,
+        #         "text": batch_content,
+        #     },
+        # }
+        time_str = now.strftime("%Y-%m-%d %H:%M:%S")
         payload = {
-            "msg_type": "text",
-            "content": {
-                "total_titles": total_titles,
-                "timestamp": now.strftime("%Y-%m-%d %H:%M:%S"),
-                "report_type": report_type,
-                "text": batch_content,
-            },
+            "msg_type": "interactive",
+            "card": {
+                "config": {
+                    "wide_screen_mode": True
+                },
+                "header": {
+                    "template": "blue",
+                    "title": {
+                        "tag": "plain_text",
+                        "content": f"今日热点（{str(total_titles)}）| {report_type} \n{time_str}"
+                    }
+                },
+                "elements": [
+                {
+                    "tag": "div",
+                    "fields": [
+                        {
+                            "is_short": False,
+                            "text": {
+                                "tag": "lark_md",
+                                "content": batch_content
+                            }
+                        }
+                    ]
+                },
+                {
+                    "tag": "action",
+                    "actions": [
+                        {
+                            "tag": "button",
+                            "text": {
+                                "tag": "plain_text",
+                                "content": "查看详情"
+                            },
+                            "url": "",
+                            "type": "primary"
+                        }
+                    ]
+                }
+                ]
+            }
         }
 
         try:

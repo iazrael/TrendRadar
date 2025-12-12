@@ -53,6 +53,7 @@ RUN set -ex && \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN echo "v1.0.6" > .version
 COPY main.py .
 COPY docker/manage.py .
 

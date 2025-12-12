@@ -1,0 +1,21 @@
+FROM wantcat/trendradar:latest
+
+WORKDIR /app
+
+RUN echo "v1.0.13" > .version
+COPY main.py .
+COPY docker/manage.py .
+
+# 复制 entrypoint.sh 并强制转换为 LF 格式
+COPY docker/entrypoint.sh /entrypoint.sh.tmp
+RUN sed -i 's/\r$//' /entrypoint.sh.tmp && \
+    mv /entrypoint.sh.tmp /entrypoint.sh && \
+    chmod +x /entrypoint.sh && \
+    chmod +x manage.py && \
+    mkdir -p /app/config /app/output
+
+ENV PYTHONUNBUFFERED=1 \
+    CONFIG_PATH=/app/config/config.yaml \
+    FREQUENCY_WORDS_PATH=/app/config/frequency_words.txt
+
+ENTRYPOINT ["/entrypoint.sh"]

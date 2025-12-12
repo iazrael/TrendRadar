@@ -2,7 +2,7 @@ services:
   trend-radar:
     build:
       context: ..
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/Dockerfile.build
     container_name: trend-radar
     restart: unless-stopped
 
@@ -59,19 +59,19 @@ services:
       - RUN_MODE=${RUN_MODE:-cron}
       - IMMEDIATE_RUN=${IMMEDIATE_RUN:-true}
 
-  trend-radar-mcp:
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile.mcp
-    container_name: trend-radar-mcp
-    restart: unless-stopped
+  # trend-radar-mcp:
+  #   build:
+  #     context: ..
+  #     dockerfile: docker/Dockerfile.mcp
+  #   container_name: trend-radar-mcp
+  #   restart: unless-stopped
 
-    ports:
-      - "127.0.0.1:3333:3333"
+  #   ports:
+  #     - "127.0.0.1:3333:3333"
 
-    volumes:
-      - ../config:/app/config:ro
-      - ../output:/app/output:ro
+  #   volumes:
+  #     - ../config:/app/config:ro
+  #     - ../output:/app/output:ro
 
-    environment:
-      - TZ=Asia/Shanghai
+  #   environment:
+  #     - TZ=Asia/Shanghai
