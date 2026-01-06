@@ -847,7 +847,15 @@ def load_frequency_words(
             continue
 
         # 处理词组区域（保持现有逻辑）
-        words = lines
+        group_title = None
+        words = []
+        
+        # 检查并提取标题行
+        for line in lines:
+            if line.startswith("#"):
+                group_title = line[1:].strip()
+            else:
+                words.append(line)
 
         group_required_words = []
         group_normal_words = []
@@ -883,6 +891,7 @@ def load_frequency_words(
                     "normal": group_normal_words,
                     "group_key": group_key,
                     "max_count": group_max_count,  # 新增字段
+                    "title": group_title,  # 新增：分组标题
                 }
             )
 
@@ -1555,12 +1564,15 @@ def count_word_frequency(
             )
 
     stats = []
-    # 创建 group_key 到位置和最大数量的映射
+    # 创建 group_key 到位置、最大数量和标题的映射
     group_key_to_position = {
         group["group_key"]: idx for idx, group in enumerate(word_groups)
     }
     group_key_to_max_count = {
         group["group_key"]: group.get("max_count", 0) for group in word_groups
+    }
+    group_key_to_title = {
+        group["group_key"]: group.get("title", None) for group in word_groups
     }
 
     for group_key, data in word_stats.items():
@@ -1587,9 +1599,13 @@ def count_word_frequency(
         if group_max_count > 0:
             sorted_titles = sorted_titles[:group_max_count]
 
+        # 获取标题信息
+        group_title = group_key_to_title.get(group_key, None)
+        
         stats.append(
             {
                 "word": group_key,
+                "title": group_title,  # 新增：分组标题
                 "count": data["count"],
                 "position": group_key_to_position.get(group_key, 999),
                 "titles": sorted_titles,
@@ -2469,7 +2485,9 @@ def render_html_content(
             else:
                 count_class = ""
 
-            escaped_word = html_escape(stat["word"])
+            # 使用标题或原关键词作为显示名称
+            display_name = stat["title"] if stat["title"] else stat["word"]
+            escaped_word = html_escape(display_name)
 
             stats_html += f"""
                 <div class="word-group">
@@ -2974,9 +2992,9 @@ def render_feishu_content(
         total_count = len(report_data["stats"])
 
         for i, stat in enumerate(report_data["stats"]):
-            word = stat["word"]
+            # 使用标题或原关键词作为显示名称
+            word = stat["title"] if stat["title"] else stat["word"]
             count = stat["count"]
-
             sequence_display = f"<font color='grey'>[{i + 1}/{total_count}]</font>"
 
             if count >= 10:
@@ -3090,9 +3108,9 @@ def render_dingtalk_content(
         total_count = len(report_data["stats"])
 
         for i, stat in enumerate(report_data["stats"]):
-            word = stat["word"]
+            # 使用标题或原关键词作为显示名称
+            word = stat["title"] if stat["title"] else stat["word"]
             count = stat["count"]
-
             sequence_display = f"[{i + 1}/{total_count}]"
 
             if count >= 10:
@@ -3388,7 +3406,8 @@ def split_content_into_batches(
 
         # 逐个处理词组（确保词组标题+第一条新闻的原子性）
         for i, stat in enumerate(report_data["stats"]):
-            word = stat["word"]
+            # 使用标题或原关键词作为显示名称
+            word = stat["title"] if stat["title"] else stat["word"]
             count = stat["count"]
             sequence_display = f"[{i + 1}/{total_count}]"
 

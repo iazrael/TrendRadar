@@ -1,50 +1,82 @@
+# AI
+ai
+人工智能
 LLM
 大模型
 多模态
-
 ASR
 TTS
 Agent
+智能体
+AIGC
+生成式AI
+Transformer
+RAG
+端侧模型
+具身智能
 
-华为
-鸿蒙
-HarmonyOS
-
-英伟达
-NVIDIA
-
-AMD
-intel
-GPU
-NPU
-
-谷歌
+# 热门模型
+openai
+chatgpt
+sora
+gpt-4
+gpt-5
+o1
+claude
+anthropic
 google
 gemini
 deepmind
 DeepSeek
+幻方量化
+kimi
+月之暗面
+Llama
+Meta AI
+Mistral
 
-chatgpt
-openai
-sora
-claude
+# 算力与芯片
+英伟达
+NVIDIA
+黄仁勋
+AMD
+intel
+GPU
+NPU
+TPU
+芯片
+半导体
+光刻机
+台积电
+先进封装
+HBM
 
+# 智能终端
+华为
+鸿蒙
+HarmonyOS
+纯血鸿蒙
+苹果
+apple
 iphone
 ipad
 mac
 ios
+Apple Intelligence
+vision pro
 
-ai
-!gai
-人工智能
-
+# 行业应用
 自动驾驶
+FSD
+无人驾驶
 机器人
-
-芯片
-光刻机
+人形机器人
+波士顿动力
+特斯拉机器人
 科技
+黑科技
 
+!gai
 !影视
 !电影
 !电视剧
@@ -54,3 +86,6 @@ ai
 !餐饮
 !八卦
 !综艺
+!穿搭
+!带货
+!直播间
