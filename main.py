@@ -1710,6 +1710,7 @@ def prepare_report_data(
         processed_stats.append(
             {
                 "word": stat["word"],
+                "title": stat.get("title"),
                 "count": stat["count"],
                 "percentage": stat.get("percentage", 0),
                 "titles": processed_titles,
@@ -2486,7 +2487,7 @@ def render_html_content(
                 count_class = ""
 
             # 使用标题或原关键词作为显示名称
-            display_name = stat["title"] if stat["title"] else stat["word"]
+            display_name = stat.get("title") if stat.get("title") else stat["word"]
             escaped_word = html_escape(display_name)
 
             stats_html += f"""
@@ -2993,7 +2994,7 @@ def render_feishu_content(
 
         for i, stat in enumerate(report_data["stats"]):
             # 使用标题或原关键词作为显示名称
-            word = stat["title"] if stat["title"] else stat["word"]
+            word = stat.get("title") if stat.get("title") else stat["word"]
             count = stat["count"]
             sequence_display = f"<font color='grey'>[{i + 1}/{total_count}]</font>"
 
@@ -3109,7 +3110,7 @@ def render_dingtalk_content(
 
         for i, stat in enumerate(report_data["stats"]):
             # 使用标题或原关键词作为显示名称
-            word = stat["title"] if stat["title"] else stat["word"]
+            word = stat.get("title") if stat.get("title") else stat["word"]
             count = stat["count"]
             sequence_display = f"[{i + 1}/{total_count}]"
 
@@ -3407,7 +3408,7 @@ def split_content_into_batches(
         # 逐个处理词组（确保词组标题+第一条新闻的原子性）
         for i, stat in enumerate(report_data["stats"]):
             # 使用标题或原关键词作为显示名称
-            word = stat["title"] if stat["title"] else stat["word"]
+            word = stat.get("title") if stat.get("title") else stat["word"]
             count = stat["count"]
             sequence_display = f"[{i + 1}/{total_count}]"
 
